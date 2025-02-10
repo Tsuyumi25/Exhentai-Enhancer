@@ -118,9 +118,13 @@ export function useMagnifierStyle(
   - mappingArea.vertical: 單位爲vh
   */
   function getMappingArea(imgRect: DOMRect, normalizedRect: any) {
+    const verticalStart = imgRect.top + (normalizedRect.height * config.mappingArea.vertical / 100)
+    const verticalEnd = imgRect.top + imgRect.height - (normalizedRect.height * config.mappingArea.vertical / 100)
+
+    // 限制映射範圍在 normalizedRect 的垂直邊界內
     return {
-      top: normalizedRect.top + (imgRect.height * config.mappingArea.vertical / 100),
-      bottom: normalizedRect.bottom - (imgRect.height * config.mappingArea.vertical / 100),
+      top: Math.max(verticalStart, normalizedRect.top + (normalizedRect.height * config.mappingArea.vertical / 100)),
+      bottom: Math.min(verticalEnd, normalizedRect.bottom - (normalizedRect.height * config.mappingArea.vertical / 100)),
       left: imgRect.left + (imgRect.width * config.mappingArea.horizontal / 100),
       right: imgRect.right - (imgRect.width * config.mappingArea.horizontal / 100)
     }
@@ -138,6 +142,12 @@ export function useMagnifierStyle(
   }
 
   return {
-    contentStyle
+    contentStyle,
+    getImageSizeScale,
+    getNormalizedRect,
+    getCenterPoint,
+    getMappingArea,
+    getRelativePosition,
+    calculateTransformStyle
   }
 } 

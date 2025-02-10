@@ -13,6 +13,10 @@
                 <div class="magnifier-center-point" />
             </div>
         </div>
+        <MagnifierDebug 
+            :state="state"
+            :config="magnifierConfig"
+        />
     </div>
 </template>
 
@@ -20,6 +24,7 @@
 import { reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useMagnifierEvents } from '@/composables/MultiPageViewerEnhancer/useMagnifierEvents'
 import { useMagnifierStyle } from '@/composables/MultiPageViewerEnhancer/useMagnifierStyle'
+import MagnifierDebug from './MagnifierDebug.vue'
 
 
 export type MagnifierConfig = typeof magnifierConfig
